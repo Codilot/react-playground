@@ -12,10 +12,10 @@ export default function DrawerLeft(props) {
     whiteSpace: "nowrap",
     overflowX: "hidden",
     mt: props.appBarHeight,
-    width: props.leftOffset,
+    width: props.width,
     flexShrink: 0,
     [`& .MuiDrawer-paper`]: {
-      width: props.leftOffset,
+      width: props.width,
       boxSizing: "border-box",
       overflowX: "hidden",
     },

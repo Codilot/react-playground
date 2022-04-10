@@ -1,4 +1,5 @@
 import React from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -7,10 +8,15 @@ import { createRoot } from "react-dom/client";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
+
+const theme = createTheme({});
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

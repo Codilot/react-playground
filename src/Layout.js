@@ -1,5 +1,6 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 
@@ -8,27 +9,26 @@ import AppBar from "./AppBar";
 import DrawerLeft from "./DrawerLeft";
 import Main from "./Main";
 
-//constants
-const drawerWidth = 240;
-const appBarHeight = 8;
-
 function Layout(props) {
-  const [open, setOpen] = React.useState(true);
-  const [leftOffset, setLeftOffset] = React.useState(drawerWidth);
+  const isXsScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const drawerWidth = 240;
+
+  const appBarHeight = 8;
+  let [open, setOpen] = useState(true);
+  let [leftOffset, setLeftOffset] = useState(drawerWidth);
 
   const handleDrawerToggle = () => {
     setOpen(!open);
-    setLeftOffset(open ? drawerWidth / 4 : drawerWidth);
   };
+
+  useEffect(() => {
+    setLeftOffset(open ? drawerWidth : drawerWidth / 4);
+  }, [open]);
 
   return (
     <Box>
       <AppBar clickMenuIcon={handleDrawerToggle} />
-      <DrawerLeft
-        appBarHeight={appBarHeight}
-        leftOffset={leftOffset}
-        open={open}
-      />
+      <DrawerLeft appBarHeight={appBarHeight} width={leftOffset} open={open} />
 
       <Main leftOffset={leftOffset} appBarHeight={appBarHeight} />
     </Box>

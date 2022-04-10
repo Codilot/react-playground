@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 
 const Main = (props) => {
   const theme = useTheme();
-  console.log(props);
   return (
     <Box
       sx={{
