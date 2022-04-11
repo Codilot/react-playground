@@ -7,7 +7,7 @@ import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import ListItem from "./ListItem";
 
-export default function DrawerLeft(props) {
+export default function MainNav(props) {
   const drawerStyles = {
     whiteSpace: "nowrap",
     overflowX: "hidden",

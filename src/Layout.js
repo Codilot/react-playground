@@ -1,46 +1,51 @@
 import { useState, useEffect } from "react";
-import { styled, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-
-import Typography from "@mui/material/Typography";
 import AppBar from "./AppBar";
-import DrawerLeft from "./DrawerLeft";
+import MainNav from "./MainNav";
 import Main from "./Main";
 
 function Layout(props) {
   const isXsScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  const drawerWidth = 240;
-
   const appBarHeight = 8;
-  let [open, setOpen] = useState(true);
-  let [leftOffset, setLeftOffset] = useState(drawerWidth);
 
+  const drawerSizes = {
+    mobile: {
+      open: "100%",
+      collapsed: "0px",
+    },
+    desktop: {
+      open: "240px",
+      collapsed: "64px",
+    },
+  };
+  const drawerWidthOpen = isXsScreen
+    ? drawerSizes.mobile.open
+    : drawerSizes.desktop.open;
+  const drawerWidthCollapsed = isXsScreen
+    ? drawerSizes.mobile.collapsed
+    : drawerSizes.desktop.collapsed;
+
+  let [open, setOpen] = useState(false);
+  let [leftOffset, setLeftOffset] = useState(
+    isXsScreen ? drawerSizes.mobile.collapsed : drawerSizes.desktop.collapsed
+  );
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
 
   useEffect(() => {
-    setLeftOffset(open ? drawerWidth : drawerWidth / 4);
-  }, [open]);
+    open ? setLeftOffset(drawerWidthOpen) : setLeftOffset(drawerWidthCollapsed);
+  }, [open, drawerWidthOpen, drawerWidthCollapsed]);
 
   return (
     <Box>
       <AppBar clickMenuIcon={handleDrawerToggle} />
-      <DrawerLeft appBarHeight={appBarHeight} width={leftOffset} open={open} />
+      <MainNav appBarHeight={appBarHeight} width={leftOffset} open={open} />
 
       <Main leftOffset={leftOffset} appBarHeight={appBarHeight} />
     </Box>
   );
 }
-
-Layout.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default Layout;
