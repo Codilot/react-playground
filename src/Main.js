@@ -8,7 +8,7 @@ const Main = (props) => {
   return (
     <Box
       sx={{
-        ml: `${props.leftOffset}px`,
+        ml: props.leftOffset,
         p: 4,
         height: "100%",
         transition: theme.transitions.create("margin", {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 import AppBar from "./AppBar";
@@ -6,19 +7,21 @@ import MainNav from "./MainNav";
 import Main from "./Main";
 
 function Layout(props) {
+  const theme = useTheme();
   const isXsScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const appBarHeight = 8;
 
   const drawerSizes = {
     mobile: {
       open: "100%",
-      collapsed: "0px",
+      collapsed: theme.spacing(0),
     },
     desktop: {
-      open: "240px",
-      collapsed: "64px",
+      open: theme.spacing(30),
+      collapsed: `calc(${theme.spacing(7)} + 1px)`,
     },
   };
+
   const drawerWidthOpen = isXsScreen
     ? drawerSizes.mobile.open
     : drawerSizes.desktop.open;
